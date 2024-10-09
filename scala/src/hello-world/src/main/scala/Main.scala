@@ -1,26 +1,19 @@
-@main def main(): Unit = {  
-  UserApp.main(Array.empty)
+def main(args: Array[String]): Unit = {
+  handleCustomer(2)
 }
 
+case class Customer(id: Int, firstName: String)
 
-case class User(name: String)
+val customers =
+  List(Customer(1, "John"), Customer(2, "Jane"), Customer(3, "Doe"))
 
-def getUserFromDB(uid: Int): Option[User] = {
-  // Simulating database lookup
-  if (uid % 2 == 0) Some(User("Even User")) else None
+def getCustomer(uid: Int): Option[Customer] = {
+  customers.find(_.id == uid)
 }
 
-def handleUser(uid: Int): Unit = {
-  getUserFromDB(uid) match {
-    case Some(user) => println(s"User found: ${user.name}")
-    case None => println("User not found")
-  }
-}
-
-object UserApp {
-  def main(args: Array[String]): Unit = {
-    println("\nTesting handleUser function:")
-    handleUser(1)
-    handleUser(2)
+def handleCustomer(uid: Int): Unit = {
+  getCustomer(uid) match {
+    case Some(customer) => println(s"Customer found: ${customer.firstName}")
+    case None           => println("Customer not found")
   }
 }
